@@ -2,14 +2,10 @@
 #include <set>
 #include <random>
 
-
 class State
 {
 public:
-	virtual bool operator()(int prob) const
-	{
-		return true;
-	}	
+	virtual bool operator()(int prob) const = 0;	
 };
 
 class DiscreteState: public State 
