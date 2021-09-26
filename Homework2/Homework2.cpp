@@ -16,7 +16,7 @@ private:
 public:
     DiscreteState(int state): state(state) { }
 
-    bool operator()(int s) const {
+    bool operator()(int s) const override {
         return s == state;
     }
 };
@@ -30,7 +30,7 @@ public:
     SegmentState(): beg(0), end(-1) { }
     SegmentState(int beg, int end): beg(beg), end(end) { }
     
-    bool operator()(int s) const {
+    bool operator()(int s) const override {
         return s >= beg && s <= end;
     }
 };
@@ -44,7 +44,7 @@ public:
     SetState(): states() { }
     SetState(std::set<int> const &src): states(src) { }
     
-    bool operator()(int s) const {
+    bool operator()(int s) const override {
         return states.count(s) > 0;
     }
 };
@@ -57,7 +57,7 @@ class CrossState: public State
 	public:
 		CrossState(State &s1, State &s2): s1(s1), s2(s2){	}
 		
-		bool operator()(int s) const {
+		bool operator()(int s) const override {
 			return s1(s) and s2(s);
 		}
 };
@@ -70,7 +70,7 @@ class UnionState: public State
 	public:
 		UnionState(State &s1, State &s2): s1(s1), s2(s2){	}
 		
-		bool operator()(int s) const {
+		bool operator()(int s) const override {
 			return s1(s) or s2(s);
 		}
 };
@@ -83,7 +83,7 @@ class GapState: public State
 	public:
 		GapState(State &s1, State &s2): s1(s1), s2(s2){	}
 		
-		bool operator()(int s) const {
+		bool operator()(int s) const override{
 			return s1(s) and !s2(s);
 		}
 };
@@ -96,7 +96,7 @@ class UnionGapState: public State
 	public:
 		UnionGapState(State &s1, State &s2, State &s3): s1(s1), s2(s2), s3(s3){	}
 		
-		bool operator()(int s) const {
+		bool operator()(int s) const override {
 			return (s1(s) or s2(s)) and !s3(s);
 		}
 };	
