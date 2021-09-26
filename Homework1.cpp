@@ -4,8 +4,6 @@
 #include <cmath>
 #include<algorithm>
 
-using namespace std;
-
 struct vector3 {
     double x;
     double y;
@@ -14,7 +12,7 @@ struct vector3 {
 
 class Logger {
 private:
-    vector<string> l;	
+    std::vector<string> l;	
 public:
     Logger() = default;
     void log(const string& s)
@@ -24,38 +22,38 @@ public:
 	
 	void print_log()
 	{
-		for(auto i: l) cout<< i << '\n';
+		for(auto i: l) std::cout<< i << '\n';
 	}
    // ~Logger();
 };
 
 class Particle {
 protected:  
-    string name;
-	double charge = 0;  //çàðÿä
-    vector3 coord = {0, 0, 0}; //êîîðäèíàòû
+    std::string name;
+	double charge = 0;  //Ã§Ã Ã°Ã¿Ã¤
+    vector3 coord = {0, 0, 0}; //ÃªÃ®Ã®Ã°Ã¤Ã¨Ã­Ã Ã²Ã»
     Logger logger;
 
 public:
     Particle() = default;
-    explicit Particle(string name, double charge, vector3 coord): 
+    explicit Particle(std::string name, double charge, vector3 coord): 
 						name(name), charge(charge), coord(coord){}
     
      /* string getLog () {return logger;}
 	void setLog(string logg) {logger = logg;}*/
 	
-	string getName () const { return name; }
+	std::string getName () const { return name; }
 	double getCh () const {	return charge; }
 //   vector3 getCoord () const {return coord;}
     void print_Particle () const
     {
-    	cout  << name << ": \tcharge "  << charge << ", \tcoordinats:  x = " 
+    	std::cout  << name << ": \tcharge "  << charge << ", \tcoordinats:  x = " 
 		     << coord.x << ", y = " << coord.y << ", z = " << coord.z << '\n';
 	}
 		
 	virtual void interaction(Particle& p) 
 	{		
-		cout << this->name << " <-> " << p.getName () << '\n';
+		std::cout << this->name << " <-> " << p.getName () << '\n';
 		double q_x = this->charge * p.charge * (this->coord.x - p.coord.x);		
 		double q_y = this->charge * p.charge * (this->coord.y - p.coord.y);
 		double q_z = this->charge * p.charge * (this->coord.z - p.coord.z);
@@ -68,9 +66,9 @@ public:
 			double F_x = q_x/divider;
 			double F_y = q_y/divider;
 			double F_z = q_z/divider;			
-			cout << "F_x = " << F_x << '\n';
-			cout << "F_y = " << F_y << '\n';
-			cout << "F_z = " << F_z << '\n';
+			std::cout << "F_x = " << F_x << '\n';
+			std::cout << "F_y = " << F_y << '\n';
+			std::cout << "F_z = " << F_z << '\n';
 		}		
 	}
 };
@@ -78,7 +76,7 @@ public:
 class Electron : public Particle 
 {
 public:
-    explicit Electron(string name, double charge, vector3 coord): Particle(name, charge, coord)
+    explicit Electron(std::string name, double charge, vector3 coord): Particle(name, charge, coord)
     {    	
 		logger.log("Electron was created");
 	}
@@ -88,7 +86,7 @@ public:
     	Particle::interaction(p); 
     	if (this->charge < 0 and p.getCh () == 0)
 		{
-			cout << "no interaction\n";
+			std::cout << "no interaction\n";
 			logger.log("there is no interaction between electron and  neutron");	
 		}
 		else
@@ -99,7 +97,7 @@ public:
 	    	else if (this->charge < 0 and p.getCh () > 0) 
 				logger.log("electron and proton are attracted");			
 		}
-		cout << '\n';    		    	
+		std::cout << '\n';    		    	
 	}
 	
     ~Electron()
@@ -111,7 +109,7 @@ public:
 
 class Proton : public Particle {
 public:
-    explicit Proton(string name, double charge, vector3 coord): Particle(name, charge, coord)
+    explicit Proton(std::string name, double charge, vector3 coord): Particle(name, charge, coord)
     {    	
 		logger.log("Proton was created");
 	}
@@ -121,7 +119,7 @@ public:
     	Particle::interaction(p);
     	if (this->charge > 0 and p.getCh () == 0)
 		{
-			cout << "no interaction\n";
+			std::cout << "no interaction\n";
 			logger.log("there is no interaction between proton and  neutron");	
 		}
 		else
@@ -131,7 +129,7 @@ public:
     		else if (this->charge > 0 and p.getCh () < 0) 
 				logger.log("proton and electron are attracted");  
 		} 
-		cout << '\n';
+		std::cout << '\n';
 	}
 	
     ~Proton()
@@ -143,7 +141,7 @@ public:
 
 class Neutron : public Particle {
 public:
-    explicit Neutron(string name, double charge, vector3 coord): Particle(name, charge, coord)
+    explicit Neutron(std::string name, double charge, vector3 coord): Particle(name, charge, coord)
     {    	
 		logger.log("Neutron was created");
 	}
@@ -156,7 +154,7 @@ public:
 			logger.log("there is no interaction between neutron and electron");
     	else if (this->charge == 0 and p.getCh () > 0) 
 			logger.log("there is no interaction between neutron and proton");
-		cout << '\n';	
+		std::cout << '\n';	
 	}	
 	
     ~Neutron()
@@ -169,7 +167,7 @@ public:
 class World 
 {
 private:
-    vector<Particle> v;
+    std::vector<Particle> v;
     
 public:
     //const vector<Particle>& getv() const { return v; }
@@ -180,17 +178,17 @@ public:
 	
     //void deleteParticle(const Particle& p){	}
     
-    friend ostream& operator<<(ostream& os, const World& w);
+    friend std::ostream& operator<<(std::ostream& os, const World& w);
 };
 
-ostream& operator<<(ostream& os, const World& w)
+std::ostream& operator<<(std::ostream& os, const World& w)
 {
-	cout << "This world contains:\n";
+	std::cout << "This world contains:\n";
 	for(int i = 0; i < w.v.size(); i++)
         {            
 			w.v[i].print_Particle();             
         } 
-	cout << '\n';      
+	std::cout << '\n';      
 	return os;
 }
 
@@ -209,5 +207,5 @@ int main()
 	A.addParticle(one);
 	A.addParticle(two);
 	A.addParticle(three);
-	cout << A;
+	std::cout << A;
 }
