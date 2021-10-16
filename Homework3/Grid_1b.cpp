@@ -29,26 +29,24 @@ public:
 
     size_t get_xsize() const
     {
-        return this->x_size;
+        return x_size;
     }
     
     size_t get_ysize() const
     {
-        return this->y_size;
+        return y_size;
     }
 
-    Grid& operator=(T A)
+    Grid& operator=(T a)
     {
         for (size_t i = 0; i < x_size * y_size; i++) {
-            memory[i] = A;
+            memory[i] = a;
         }
         return *this;
     }
 
     template <typename T1>friend std::ostream& operator<<(std::ostream&, Grid<T1> const&);
     template <typename T1>friend std::istream& operator>>(std::istream&, Grid<T1>&);
-
-
 };
 
 template <typename T1>
