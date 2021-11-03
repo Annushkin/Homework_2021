@@ -7,15 +7,16 @@ private:
     size_t x_size, y_size;
 
 public:
-    Grid(size_t x_size, size_t y_size): x_size(x_size), y_size(y_size)
-    {
-        memory = new T[x_size * y_size];
-    }
+    Grid() : Grid(0, 0) { }
+    Grid(size_t x_size, size_t y_size): x_size(x_size), y_size(y_size), memory(new T[x_size * y_size]) { }
 
-    ~Grid()
+    Grid(Grid const& cgr) : Grid(cgr.x_size, cgr.y_size)
     {
-        delete[] memory;
+        for (size_t i = 0; i < x_size * y_size; i++)
+            memory[i] = cgr.memory[i];
     }
+    
+    ~Grid() { delete[] memory; }
 
     T operator()(size_t x_idx, size_t y_idx) const
     {
@@ -37,6 +38,15 @@ public:
         return y_size;
     }
 
+    Grid& operator=(Grid const& cgr)
+    {
+        Grid<T> tmp(cgr);
+        std::swap(this->memory, tmp.memory);
+        std::swap(this->x_size, tmp.x_size);
+        std::swap(this->y_size, tmp.y_size);
+        return *this;
+    }
+    
     Grid& operator=(T a)
     {
         for (size_t i = 0; i < x_size * y_size; i++) {
@@ -66,15 +76,9 @@ std::ostream& operator<<(std::ostream& os, Grid<T1> const& gr)
 template <typename T1>
 std::istream& operator>>(std::istream& is, Grid<T1> & gr)
 {
-    for (size_t i = 0; i < gr.get_xsize(); i++)
-    {
+    for (size_t i = 0; i < gr.get_xsize(); i++)    
         for (size_t j = 0; j < gr.get_ysize(); j++)
-        {
-            T1 temp;
-            is >> temp;
-            gr(i, j) = temp;
-        }
-    }
+            is >> gr(i, j);    
     return is;
 }
 
