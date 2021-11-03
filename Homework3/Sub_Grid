@@ -46,11 +46,11 @@ public:
 
    T average()
     {
-        T summ = 0;
+        T sum = 0;
         for (size_t i = 0; i < x_size * y_size; i++) {
-            summ += memory[i];
+            sum += memory[i];
         }
-        return summ / (x_size * y_size);
+        return sum / (x_size * y_size);
     }
 
    
