@@ -16,16 +16,16 @@ public:
     ~Grid() { delete[] memory; }
 
     //конструктор копирования
-    Grid(Grid const& cgr) : Grid(cgr.x_size, cgr.y_size)
+    Grid(Grid const& src) : Grid(src.x_size, src.y_size)
     {
         for (size_t i = 0; i < x_size * y_size; i++)
-            memory[i] = cgr.memory[i];
+            memory[i] = src.memory[i];
     }
    
     //Оператор копирующего присваивания
-    Grid& operator=(Grid const& cgr)
+    Grid& operator=(Grid const& src)
     {
-        Grid<T> tmp(cgr);
+        Grid<T> tmp(src);
         std::swap(this->memory, tmp.memory);
         std::swap(this->x_size, tmp.x_size);
         std::swap(this->y_size, tmp.y_size);
