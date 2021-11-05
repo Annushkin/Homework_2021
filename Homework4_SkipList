@@ -36,11 +36,11 @@ public:
     {
         //constexpr - значение вычисляется во время компиляции
         //Создаём узел head, присваиваем ему минимальное мозможное значение
-        constexpr int headKey = std::numeric_limits<int>::min();
+        constexpr T headKey = std::numeric_limits<T>::min();
         head = new SkipNode(headKey, 0, maxLevel);
 
         //Создаём узел NIL, присваиваем ему максимальное возможное значение
-        constexpr int nilKey = std::numeric_limits<int>::max();
+        constexpr T nilKey = std::numeric_limits<T>::max();
         NIL = new SkipNode(nilKey, 10000, maxLevel);
         
         //делаем все указатели от head в NIL
