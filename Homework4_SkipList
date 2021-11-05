@@ -22,7 +22,7 @@ private:
     const float probability;
     const int maxLevel;
 
-    //Генератор случайных чисел для создания уровня узла в диапазоне [1, maxLevel)    
+    //Генератор случайных чисел для создания уровня узла в диапазоне [1, maxLevel]   
     int randomLevel() const {
         std::random_device rd;
         std::mt19937 gen(rd());
