@@ -26,8 +26,12 @@ private:
     int randomLevel() const {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<> distr(1, maxLevel);
-        return  distr(gen);
+        std::uniform_int_distribution<> distr(0, 1);
+        int level = 0;       
+        while (distr(gen) < probability and level < head->forward.size()) {
+            level++;
+        }
+        return level;
     }
 
 public:
