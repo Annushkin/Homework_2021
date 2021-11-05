@@ -70,7 +70,7 @@ public:
     }
 
     //Поиск по ключу. Возвращает указатель на найденный узел.
-    SkipNode* find(int searchKey) {
+    SkipNode* find(T searchKey) {
         SkipNode* node = head;        
         for (size_t i = head->forward.size(); i-- > 0;) {
             while (node->forward[i]->key < searchKey) {
@@ -83,7 +83,7 @@ public:
     }
    
     //Вставка по ключу
-    void insert(int searchKey, const int& newValue) {
+    void insert(T searchKey, const U& newValue) {
         //Поиск места вставки. В векторе update сохряняются элементы перед вставляемым
         std::vector<SkipNode*> update(head->forward.size(), nullptr);
         SkipNode* node = head;
@@ -105,7 +105,7 @@ public:
     }
 
     //Удаляет элемент по ключу, если он есть. 
-    void erase(int searchKey) {
+    void erase(T searchKey) {
         std::vector<SkipNode*> update(head->forward.size(), nullptr);
         SkipNode* node = head;
         for (size_t i = head->forward.size(); i-- > 0;) {
