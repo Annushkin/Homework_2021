@@ -3,10 +3,10 @@
 #include<vector>
 #include<deque>
 
-template<typename T, int s>
+template<typename T>
 T Palindrom(T& words)
 {	
-	auto p = [](std::string & words) -> bool{	
+auto p = [](std::string & words) -> bool{	
     for (int i = 0; i < words.size()/2; ++i)
     {		
             if (words[i] != words[words.size() - 1])            
@@ -29,7 +29,7 @@ int main(){
 	std::deque<std::string>words = {"lol", "topot", "the", "cooc", "these"};	 
 	
 	//std::vector<std::string>res = Palindrom(words);
-    std::deque<std::string>res = Palindrom(words);     
+    	std::deque<std::string>res = Palindrom(words);     
 	
 	for(auto &i: res) std::cout << i << " ";    
 
