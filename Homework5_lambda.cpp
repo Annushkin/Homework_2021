@@ -8,12 +8,15 @@ template<typename T>
 T Palindrom(T& words)
 {	
 	auto p = [](std::string & words) -> bool{	
-    for (int i = 0; i < words.size()/2; ++i)
-    {		
-            if (words[i] != words[words.size() - 1])            
-            	return  false;				
-        return true;              	
-    }
+    if (words.size() < 2) return true;
+    else{	
+		for (int i = 0; i < words.size()/2; ++i)
+	    {		
+	            if (words[i] != words[words.size() - 1])            
+	            	return  false;				
+	        return true;              	
+	    }
+ 	}
 };
       T result;
    for(auto it = words.begin(); it != words.end(); ++it){
@@ -25,9 +28,9 @@ T Palindrom(T& words)
 
 int main(){
 	  
-//std::vector<std::string>words = {"lol", "topot", "the", "cooc", "these"};  
-//std::list<std::string>words = {"lol", "topot", "the", "cooc", "these"};
-std::deque<std::string>words = {"lol", "topot", "the", "cooc", "these"};	
+//std::vector<std::string>words = {"lol", "topot", "the", "cooc", "these", " ", "l"};  
+//std::list<std::string>words = {"lol", "topot", "the", "cooc", "these", " ", "l"};
+std::deque<std::string>words = {"lol", "topot", "the", "cooc", "these", " ", "l"};	
 	
 //std::vector<std::string>res = Palindrom(words);
 //std::list<std::string>res = Palindrom(words);
